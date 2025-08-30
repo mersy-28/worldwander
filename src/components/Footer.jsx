@@ -12,7 +12,7 @@ function Footer() {
           <Link to="/">Home</Link>
           <Link to="/bucket-list">Bucket List</Link>
         </div>
-        <p>© {currentYear} WorldWander - Created by Faith Hookey</p>
+        <p>© {currentYear} WorldWander - Created by Emaan Hookey</p>
         <p>Data provided by <a href="https://restcountries.com" target="_blank" rel="noopener noreferrer">RestCountries API</a></p>
       </div>
     </footer>

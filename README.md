@@ -1,70 +1,79 @@
-# Getting Started with Create React App
+# WorldWander 🌎
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![WorldWander Logo](https://img.shields.io/badge/WorldWander-Explore%20The%20World-3498db)
+[![React](https://img.shields.io/badge/React-19.1.1-61dafb)](https://reactjs.org/)
 
-## Available Scripts
+> WorldWander is an interactive web application for exploring countries around the world and creating your personalized travel bucket list.
 
-In the project directory, you can run:
+## 🌟 Features
 
-### `npm start`
+- **Country Explorer**: Browse through countries from all around the world
+- **Detailed Information**: Access details about each country including capital, population, languages, and currencies
+- **Search & Filter**: Find countries by name or filter by region
+- **Bucket List**: Create and maintain your travel bucket list
+- **Persistent Storage**: Your bucket list is saved between sessions
+- **Responsive Design**: Beautiful user interface that works on desktop and mobile devices
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## 🖥️ Usage
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Home Page
 
-### `npm test`
+Browse through a collection of countries from around the world. Use the search bar to find specific countries or filter by region.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Country Details
 
-### `npm run build`
+Click on any country to view detailed information including:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Capital city
+- Population
+- Region and subregion
+- Languages
+- Currencies
+- And more!
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Bucket List
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Add countries to your bucket list by clicking the "Add to Bucket List" button on the country details page. View and manage your bucket list from the "My Bucket List" page accessible from the navigation menu.
 
-### `npm run eject`
+## 🛠️ Technology Stack
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- **Frontend Framework**: React 19.1
+- **Routing**: React Router 7.8
+- **Styling**: Custom CSS with modern design principles
+- **State Management**: React Hooks
+- **API Integration**: REST Countries API
+- **Data Persistence**: Browser's Local Storage
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 🌐 API Integration
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+WorldWander integrates with the [REST Countries API](https://restcountries.com) to fetch up-to-date information about countries. The application implements proper error handling and loading states for a smooth user experience.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## 🚧 Future Enhancements
 
-## Learn More
+- **Interactive World Map**: Replace the grid view with an interactive world map
+- **Trip Planning**: Add functionality to plan trips to bucket list countries
+- **Social Features**: Share bucket lists with friends
+- **Dark Mode**: Implement light/dark theme toggle
+- **More to Come!**
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## 👥 Contributing
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-### Code Splitting
+1. Fork the repository
+2. Create your feature branch (`git checkout -b <feature/amazing-feature>`)
+3. Commit your changes (`git commit -m '<some amazing feature>'`)
+4. Push to the branch (`git push origin <feature/amazing-feature>`)
+5. Open a Pull Request
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## 📬 Contact
 
-### Analyzing the Bundle Size
+Email: [contact@emaan.dev](mailto:contact@emaan.dev)
+GitHub: [@mersy-28](https://github.com/mersy-28)
+LinkedIn: [Emaan Hookey](https://linkedin.com/in/emaan-hookey/)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+---
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+<p align="center">
+  Made with ❤️ and React
+</p>
