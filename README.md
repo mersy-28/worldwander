@@ -68,9 +68,9 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## 📬 Contact
 
-Email: [contact@emaan.dev](mailto:contact@emaan.dev)
-GitHub: [@mersy-28](https://github.com/mersy-28)
-LinkedIn: [Emaan Hookey](https://linkedin.com/in/emaan-hookey/)
+- Email: [contact@emaan.dev](mailto:contact@emaan.dev)
+- GitHub: [@mersy-28](https://github.com/mersy-28)
+- LinkedIn: [Emaan Hookey](https://linkedin.com/in/emaan-hookey/)
 
 ---
 
