@@ -3,8 +3,8 @@ import { useParams, Link } from 'react-router-dom';
 import './CountryPage.css';
 
 function CountryPage({ addToBucketList, removeFromBucketList, isInBucketList }) {
-  // get country name from URL
-  const { name } = useParams();
+  // get country code from URL
+  const { name: countryCode } = useParams();
   
   // state for country data
   const [country, setCountry] = useState(null);
@@ -14,15 +14,15 @@ function CountryPage({ addToBucketList, removeFromBucketList, isInBucketList }) 
   const [error, setError] = useState(null);
 
   // fetch country data when the component mounts
-  // or name changes
+  // or country code changes
   useEffect(() => {
     // fetch country data
     const fetchCountry = async () => {
       try {
         setLoading(true);
         
-        // fetch data from API for specific country with required fields
-        const response = await fetch(`https://restcountries.com/v3.1/name/${name}?fields=name,flags,capital,population,region,subregion,languages,currencies`);
+        // Fetch data from API using alpha code (countryCode could be cca2 or cca3)
+        const response = await fetch(`https://restcountries.com/v3.1/alpha/${countryCode}?fields=name,flags,capital,population,region,subregion,languages,currencies,cca3`);
         
         if (!response.ok) {
           throw new Error('Failed to fetch country data');
@@ -32,14 +32,15 @@ function CountryPage({ addToBucketList, removeFromBucketList, isInBucketList }) 
         
         // make country data simpler
         const countryData = {
-          name: data[0].name.common,
-          flag: data[0].flags.png,
-          capital: data[0].capital ? data[0].capital[0] : 'Unknown',
-          population: data[0].population,
-          region: data[0].region,
-          subregion: data[0].subregion,
-          languages: data[0].languages ? Object.values(data[0].languages) : [],
-          currencies: data[0].currencies ? Object.values(data[0].currencies).map(c => c.name) : []
+          name: data.name.common,
+          flag: data.flags.png,
+          capital: data.capital ? data.capital[0] : 'Unknown',
+          population: data.population,
+          region: data.region,
+          subregion: data.subregion,
+          languages: data.languages ? Object.values(data.languages) : [],
+          currencies: data.currencies ? Object.values(data.currencies).map(c => c.name) : [],
+          alpha3Code: data.cca3
         };
         
         // update our state with country data
@@ -53,12 +54,12 @@ function CountryPage({ addToBucketList, removeFromBucketList, isInBucketList }) 
     };
 
     fetchCountry();
-  }, [name]); // re-run effect if the country name changes
+  }, [countryCode]); // re-run effect if the country code changes
 
   // function for adding/removing country from bucket list
   const handleBucketListAction = () => {
-    if (isInBucketList(country.name)) {
-      removeFromBucketList(country.name);
+    if (isInBucketList(country.alpha3Code)) {
+      removeFromBucketList(country.alpha3Code);
     } else {
       addToBucketList(country);
     }
@@ -127,10 +128,10 @@ function CountryPage({ addToBucketList, removeFromBucketList, isInBucketList }) 
         </div>
         
         <button 
-          className={`bucket-list-button ${isInBucketList(country.name) ? 'remove' : 'add'}`}
+          className={`bucket-list-button ${isInBucketList(country.alpha3Code) ? 'remove' : 'add'}`}
           onClick={handleBucketListAction}
         >
-          {isInBucketList(country.name) 
+          {isInBucketList(country.alpha3Code) 
             ? 'Remove from Bucket List' 
             : 'Add to Bucket List'}
         </button>

@@ -7,18 +7,30 @@
 
 ## 🌟 Features
 
+- **Interactive World Map**: Explore countries on an interactive SVG-based world map
 - **Country Explorer**: Browse through countries from all around the world
 - **Detailed Information**: Access details about each country including capital, population, languages, and currencies
 - **Search & Filter**: Find countries by name or filter by region
 - **Bucket List**: Create and maintain your travel bucket list
 - **Persistent Storage**: Your bucket list is saved between sessions
 - **Responsive Design**: Beautiful user interface that works on desktop and mobile devices
+- **Region Navigation**: Filter countries by their continental regions
 
 ## 🖥️ Usage
 
 ### Home Page
 
-Browse through a collection of countries from around the world. Use the search bar to find specific countries or filter by region.
+Browse through a collection of countries from around the world using either the interactive world map or the grid view. Use the controls to switch between views and filter by region.
+
+### Interactive Map
+
+The interactive world map allows you to:
+
+- Click on countries to view their details
+- Hover over countries to see quick information
+- Filter countries by region
+- Zoom and pan the map for better navigation
+- Identify bucket list countries which are highlighted
 
 ### Country Details
 

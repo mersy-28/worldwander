@@ -32,13 +32,13 @@ function BucketListPage({ bucketList, removeFromBucketList }) {
                 <p><strong>Population:</strong> {country.population.toLocaleString()}</p>
                 
                 <div className="bucket-list-actions">
-                  <Link to={`/country/${country.name}`} className="view-country-btn">
+                  <Link to={`/country/${country.alpha3Code}`} className="view-country-btn">
                     View Details
                   </Link>
                   
                   <button 
                     className="remove-btn"
-                    onClick={() => removeFromBucketList(country.name)}
+                    onClick={() => removeFromBucketList(country.alpha3Code)}
                   >
                     Remove
                   </button>

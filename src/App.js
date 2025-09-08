@@ -25,25 +25,24 @@ function App() {
   // function to add countries to bucket list
   const addToBucketList = (country) => {
     // Check if country is already in list using the isInBucketList function
-    if (!isInBucketList(country.name)) {
+    if (!isInBucketList(country.alpha3Code)) {
       // Create new array with the new country (avoiding direct state mutation)
       setBucketList(prevList => [...prevList, country]);
     }
   };
   
   // function to remove countries from bucket list
-  const removeFromBucketList = (countryName) => {
+  const removeFromBucketList = (countryCode) => {
     setBucketList(prevList => 
-      prevList.filter(country => country.name !== countryName)
+      prevList.filter(country => country.alpha3Code !== countryCode)
     );
   };
 
   // check if a country is in the bucket list
-  const isInBucketList = (countryName) => {
-    
+  const isInBucketList = (countryCode) => {
     for (let i = 0; i < bucketList.length; i++) {
       // if matching country return true
-      if (bucketList[i].name === countryName) {
+      if (bucketList[i].alpha3Code === countryCode) {
         return true;
       }
     }
@@ -64,7 +63,7 @@ function App() {
         <Header />
         <main className="main-content">
           <Routes>
-            <Route path="/" element={<HomePage />} />
+            <Route path="/" element={<HomePage bucketList={bucketList} />} />
 
             <Route
               path="/country/:name"

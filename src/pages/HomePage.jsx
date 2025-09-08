@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import WorldMap from '../components/WorldMap';
+import CountryExplorer from '../components/CountryExplorer';
+import MapExplorer from '../components/MapExplorer';
 import './HomePage.css';
 
-function HomePage() {
+function HomePage({ bucketList = [] }) {
   // state for list of countries
   const [countries, setCountries] = useState([]);
   // state for if data is loading
   const [loading, setLoading] = useState(true);
   // state for error messages
   const [error, setError] = useState(null);
+  // state for view mode (grid or map) - default to map view
+  const [viewMode, setViewMode] = useState('map');
 
   // fetch data when the component mounts
   useEffect(() => {
@@ -17,8 +21,8 @@ function HomePage() {
       try {
         setLoading(true);
         
-        // fetch data from the API with required fields parameter
-        const response = await fetch('https://restcountries.com/v3.1/all?fields=name,flags,capital,population,region');
+        // fetch data from the API with required fields parameter including country codes
+        const response = await fetch('https://restcountries.com/v3.1/all?fields=name,flags,capital,population,region,cca2,cca3');
         
         if (!response.ok) {
           throw new Error('Failed to fetch countries');
@@ -32,7 +36,9 @@ function HomePage() {
           flag: country.flags.png,
           capital: country.capital ? country.capital[0] : 'Unknown',
           population: country.population,
-          region: country.region
+          region: country.region,
+          alpha2Code: country.cca2,
+          alpha3Code: country.cca3
         }));
         
         // update state with the simple countries data
@@ -71,9 +77,36 @@ function HomePage() {
           Browse through countries from around the world, learn about their cultures,
           and add your favorites to your travel bucket list.
         </p>
+        
+        <div className="view-toggle">
+          <button 
+            className={viewMode === 'grid' ? 'active' : ''} 
+            onClick={() => setViewMode('grid')}
+          >
+            Simple View
+          </button>
+          <button 
+            className={viewMode === 'explorer' ? 'active' : ''} 
+            onClick={() => setViewMode('explorer')}
+          >
+            Explorer View
+          </button>
+          <button 
+            className={viewMode === 'map' ? 'active' : ''} 
+            onClick={() => setViewMode('map')}
+          >
+            Map View
+          </button>
+        </div>
       </div>
       
-      <WorldMap countries={countries} />
+      {viewMode === 'grid' ? (
+        <WorldMap countries={countries} />
+      ) : viewMode === 'explorer' ? (
+        <CountryExplorer bucketList={bucketList.map(country => country.alpha3Code)} />
+      ) : (
+        <MapExplorer bucketList={bucketList.map(country => country.alpha3Code)} />
+      )}
     </div>
   );
 }

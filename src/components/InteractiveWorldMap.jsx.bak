@@ -1,0 +1,192 @@
+import React, { useState, useRef, useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
+import "./InteractiveWorldMap.css";
+
+const InteractiveWorldMap = ({ countries = [], bucketList = [] }) => {
+  const navigate = useNavigate();
+  const [selectedRegion, setSelectedRegion] = useState('');
+  const [hoveredRegion, setHoveredRegion] = useState('');
+  const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 });
+  const mapRef = useRef(null);
+  
+  // Effect to highlight selected region on map
+  useEffect(() => {
+    if (selectedRegion && mapRef.current) {
+      // Scroll to the countries list if a region is selected
+      const regionList = document.querySelector('.region-countries-list');
+      if (regionList) {
+        regionList.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+  }, [selectedRegion]);
+  
+  // Group countries by region
+  const countryByRegion = {};
+  countries.forEach(country => {
+    if (!country.region) return;
+    
+    if (!countryByRegion[country.region]) {
+      countryByRegion[country.region] = [];
+    }
+    countryByRegion[country.region].push(country);
+  });
+  
+  // Get unique regions
+  const regions = Object.keys(countryByRegion).sort();
+  
+  // Filter countries by region if selected
+  const filteredCountries = selectedRegion 
+    ? countryByRegion[selectedRegion] || [] 
+    : [];
+    
+  // Define approximate region coordinates on map
+  const regionCoordinates = {
+    'Africa': { left: '40%', top: '50%', width: '20%', height: '30%' },
+    'Americas': { left: '15%', top: '40%', width: '25%', height: '40%' },
+    'Asia': { left: '60%', top: '40%', width: '25%', height: '30%' },
+    'Europe': { left: '45%', top: '25%', width: '15%', height: '15%' },
+    'Oceania': { left: '80%', top: '65%', width: '15%', height: '15%' }
+  };
+  
+  // Handle hover events for regions
+  const handleRegionHover = (region, event) => {
+    setHoveredRegion(region);
+    setTooltipPos({ 
+      x: event.clientX, 
+      y: event.clientY - 40 
+    });
+  };
+  
+  // Handle region click
+  const handleRegionClick = (region) => {
+    setSelectedRegion(region);
+  };
+  
+  // Calculate country count by region
+  const regionCountryCount = {};
+  regions.forEach(region => {
+    regionCountryCount[region] = countryByRegion[region].length;
+  });
+  
+  return (
+    <div className="interactive-map-container">
+      <h2 className="map-title">World Map View</h2>
+      <p className="map-subtitle">
+        Explore countries by region below:
+      </p>
+      
+      <div className="region-explorer">
+        <div className="world-map-image" ref={mapRef}>
+          <img 
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/World_map_-_low_resolution.svg/1200px-World_map_-_low_resolution.svg.png" 
+            alt="World Map"
+            onError={(e) => {
+              e.target.onerror = null;
+              e.target.src = "https://cdn.pixabay.com/photo/2013/07/12/12/54/world-map-146505_1280.png";
+            }}
+          />
+          
+          {/* Clickable region overlays */}
+          <div className="map-regions">
+            {Object.keys(regionCoordinates).map(region => (
+              <div
+                key={region}
+                className={`map-region ${selectedRegion === region ? 'active' : ''}`}
+                style={{
+                  position: 'absolute',
+                  ...regionCoordinates[region],
+                  cursor: 'pointer',
+                  border: selectedRegion === region ? '2px solid #F9A826' : '1px solid transparent',
+                  borderRadius: '4px',
+                  backgroundColor: selectedRegion === region ? 'rgba(249, 168, 38, 0.2)' : 'rgba(0, 0, 0, 0)',
+                  transition: 'all 0.3s ease'
+                }}
+                onClick={() => handleRegionClick(region)}
+                onMouseEnter={(e) => handleRegionHover(region, e)}
+                onMouseLeave={() => setHoveredRegion('')}
+              >
+                <div className="region-label">
+                  <span>{region}</span>
+                  <span className="region-count">{regionCountryCount[region]} countries</span>
+                </div>
+              </div>
+            ))}
+          </div>
+          
+          {/* Tooltip */}
+          {hoveredRegion && (
+            <div 
+              className="map-tooltip"
+              style={{
+                position: 'fixed',
+                left: tooltipPos.x,
+                top: tooltipPos.y,
+                transform: 'translate(-50%, -100%)'
+              }}
+            >
+              {hoveredRegion}
+            </div>
+          )}
+        </div>
+        
+        <div className="region-selector">
+          <h3>Explore by Region</h3>
+          <select 
+            value={selectedRegion}
+            onChange={(e) => setSelectedRegion(e.target.value)}
+            className="region-select"
+          >
+            <option value="">Select a Region</option>
+            {regions.map(region => (
+              <option key={region} value={region}>{region}</option>
+            ))}
+          </select>
+          
+          {selectedRegion && (
+            <div className="region-countries-list">
+              <h4>{selectedRegion} Countries</h4>
+              <div className="region-countries-count">
+                {filteredCountries.length} countries
+              </div>
+              <ul>
+                {filteredCountries.map(country => {
+                  const isInBucketList = bucketList.some(item => item.name === country.name);
+                  
+                  return (
+                    <li key={country.name} className={isInBucketList ? 'in-bucket-list' : ''}>
+                      <a href={`/country/${country.name}`} onClick={(e) => {
+                        e.preventDefault();
+                        navigate(`/country/${country.name}`);
+                      }}>
+                        <img src={country.flag} alt={`${country.name} flag`} className="country-mini-flag" />
+                        {country.name}
+                      </a>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          )}
+        </div>
+      </div>
+      
+      <div className="map-legend">
+        <h4>Map Legend</h4>
+        <div className="map-legend-item">
+          <div className="map-legend-color" style={{ backgroundColor: "#F9A826" }}></div>
+          <span>Bucket List Countries</span>
+        </div>
+        <div className="map-legend-item">
+          <div className="map-legend-color" style={{ backgroundColor: "rgba(249, 168, 38, 0.2)" }}></div>
+          <span>Selected Region</span>
+        </div>
+        <div className="map-legend-item">
+          <div className="map-legend-color" style={{ backgroundColor: "#3498db" }}></div>
+          <span>Hovered Region</span>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default InteractiveWorldMap;
