@@ -34,8 +34,8 @@
 
 .country-flag {
   width: 100%;
-  max-height: 300px;
-  object-fit: cover;
+  height: auto; /* keep natural aspect ratio (flag-shaped) */
+  display: block;
   border-radius: var(--border-radius);
   box-shadow: var(--box-shadow);
   margin-bottom: 2rem;
@@ -127,8 +127,7 @@
   
   .country-flag {
     width: 100%;
-    height: auto;
-    max-height: unset;
+    height: auto; /* maintain aspect ratio on mobile */
     margin-bottom: 0;
   }
   

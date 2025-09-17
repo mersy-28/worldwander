@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import WorldMap from '../components/WorldMap';
 import CountryExplorer from '../components/CountryExplorer';
-import MapExplorer from '../components/MapExplorer';
+// import InteractiveMap from '../components/InteractiveMap';
+import GeoMap from '../components/GeoMap';
 import './HomePage.css';
 
 function HomePage({ bucketList = [] }) {
@@ -105,7 +106,7 @@ function HomePage({ bucketList = [] }) {
       ) : viewMode === 'explorer' ? (
         <CountryExplorer bucketList={bucketList.map(country => country.alpha3Code)} />
       ) : (
-        <MapExplorer bucketList={bucketList.map(country => country.alpha3Code)} />
+        <GeoMap bucketList={bucketList.map(country => country.alpha3Code)} />
       )}
     </div>
   );
